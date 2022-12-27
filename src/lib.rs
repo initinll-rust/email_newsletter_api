@@ -1,15 +1,18 @@
-use actix_web::{web, App, HttpResponse, HttpServer, Responder};
+use std::net::TcpListener;
+
+use actix_web::{web, App, HttpResponse, HttpServer, Responder, dev::Server};
 
 async fn health_check() -> impl Responder {
     HttpResponse::Ok()
 }
 
-pub async fn run_app() -> std::io::Result<()> {
-    HttpServer::new(|| {
-        App::new()
-            .route("/health_check", web::get().to(health_check))
-    })
-    .bind(("127.0.0.1", 8080))?
-    .run()
-    .await
+pub fn run_app(listener: TcpListener) -> Result<Server,std::io::Error> {
+    let server = HttpServer::new(|| {
+            App::new()
+                .route("/health_check", web::get().to(health_check))
+        })
+        .listen(listener)?
+        .run();
+        // No await here!
+    Ok(server)
 }
