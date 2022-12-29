@@ -1,3 +1,4 @@
+use config::{Config, ConfigError};
 use serde::Deserialize;
 
 #[derive(Deserialize)]
@@ -13,6 +14,18 @@ pub struct DatabaseSettings {
     pub port: u16,
     pub host: String,
     pub database_name: String
+}
+
+pub fn get_configuration() -> Result<Settings, ConfigError> {
+    // Initialise our configuration reader
+    let settings = Config::builder()
+                .add_source(config::File::with_name("configuration"))
+                .build()?;
+
+    // Add configuration values from a file named `configuration`.
+    // It will look for any top-level file with an extension
+    // that `config` knows how to parse: yaml, json, etc.
+    settings.try_deserialize()
 }
 
 
