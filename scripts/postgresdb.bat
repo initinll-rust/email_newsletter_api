@@ -26,6 +26,8 @@ if defined args (
 		docker pull postgres
 		docker run -d --name postgresql -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=password -e POSTGRES_DB=newsletter -p 5432:5432 postgres
 		docker inspect --format="{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}" postgresql
+		sqlx migrate info --source ../migrations
+		sqlx migrate run --source ../migrations
 	)
 
 	if %args%==stop-db (
