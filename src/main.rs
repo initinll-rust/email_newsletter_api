@@ -1,6 +1,6 @@
 use std::net::TcpListener;
 
-use email_newsletter_api::run_app;
+use email_newsletter_api::startup::run_app;
 
 #[tokio::main]
 async fn main() -> std::io::Result<()> {

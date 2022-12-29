@@ -8,7 +8,7 @@ fn spawn_app() -> String {
     // We retrive the port assigned to us by the os
     let port = listener.local_addr().unwrap().port();
 
-    let server = email_newsletter_api::run_app(listener)
+    let server = email_newsletter_api::startup::run_app(listener)
             .expect("Failed to bind address");
 
     let _ = tokio::spawn(server);
