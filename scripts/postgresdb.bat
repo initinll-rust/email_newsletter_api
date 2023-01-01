@@ -14,6 +14,10 @@ if defined args (
 		docker container rm pgadmin4
 		docker pull dpage/pgadmin4
 		docker run -d --name pgadmin4 -e PGADMIN_DEFAULT_EMAIL=admin@admin.com -e PGADMIN_DEFAULT_PASSWORD=admin -p 5050:80 dpage/pgadmin4
+		echo "Postgres admin login details - "
+		echo "URL 		: localhost:5050"
+		echo "Email		: admin@admin.com"
+		echo "Password 	: admin"
 	)
 
 	if %args%==stop-admin (
@@ -24,10 +28,15 @@ if defined args (
 	if %args%==start-db (
 		docker container rm postgresql
 		docker pull postgres
-		docker run -d --name postgresql -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=password -e POSTGRES_DB=newsletter -p 5432:5432 postgres
-		docker inspect --format="{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}" postgresql
+		docker run -d --name postgresql -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=password -e POSTGRES_DB=newsletter -p 5432:5432 postgres		
 		sqlx migrate info --source ../migrations
 		sqlx migrate run --source ../migrations
+		echo "Newsletter DB server details - "
+		echo "Server IP : "
+		docker inspect --format="{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}" postgresql		
+		echo "Name 		: newsletter"
+		echo "Username 	: postgres"
+		echo "Password 	: password"		
 	)
 
 	if %args%==stop-db (
