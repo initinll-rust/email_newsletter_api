@@ -20,6 +20,8 @@ sqlx = { version = "0.6", features = [ "runtime-actix-rustls" , "macros", "postg
 config = "0.13.3"
 uuid = { version = "1.2.2", features = ["v4"] }
 chrono = "0.4.23"
+env_logger = "0.10"
+log = "0.4"
 
 [dev-dependencies]
 reqwest = "0.11.13"
