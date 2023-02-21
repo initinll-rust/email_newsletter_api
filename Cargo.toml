@@ -16,7 +16,7 @@ name = "email_newsletter_api"
 actix-web = "4"
 tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
 serde = { version = "1.0", features = ["derive"] }
-sqlx = { version = "0.6", features = [ "runtime-actix-rustls" , "macros", "postgres", "uuid", "chrono", "migrate" ]  }
+sqlx = { version = "0.6", features = [ "runtime-actix-rustls" , "macros", "postgres", "uuid", "chrono", "migrate", "offline" ]  }
 config = "0.13.3"
 uuid = { version = "1.2.2", features = ["v4"] }
 chrono = "0.4.23"
